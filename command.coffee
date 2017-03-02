@@ -26,6 +26,9 @@ class Command
     @meshblu  = new MeshbluHttp @meshbluConfig.toJSON()
     @firehose = new Firehose meshbluConfig: @meshbluConfig.toJSON()
 
+    @firehose.on 'connect_error', (error) =>
+      console.error 'error:', error.message
+
   parseOptions: =>
     parser = dashdash.createParser({options: OPTIONS})
     options = parser.parse(process.argv)
